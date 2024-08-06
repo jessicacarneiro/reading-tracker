@@ -1,6 +1,3 @@
-function helloWorld(name: string): string {
-  return `Hello, ${name}!`;
-}
+import connectDB from './database.config'; 
 
-const message = helloWorld('TypeScript');
-console.log(message);
+connectDB();
