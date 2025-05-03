@@ -14,10 +14,10 @@ body:
     validations:
       required: false
   - type: textarea
-    id: summary
+    id: acceptance_criteria
     attributes:
-      label: "Summary"
-      description: Provide a summary of your feature request.
-      placeholder: A few specific words about your feature request.
-    validations:
+      label: "Acceptance Criteria"
+      description: Provide the acceptance criteria for your feature request.
+      placeholder: Given [context]... When [event]... Then [outcome]...
+    validations:  
       required: false
