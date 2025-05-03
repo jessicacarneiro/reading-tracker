@@ -1,6 +1,6 @@
 name: "🖥️ Infra Issue"
 description: Create a new ticket for a new infra issue
-title: "🖥️ [INFRA] - <title>"
+title: "🖥️ [INFRA] "
 labels: [
   "infra"
 ]
