@@ -1,31 +1,23 @@
 name: "💡 Feature Request"
 description: Create a new ticket for a new feature request
-title: "💡 [REQUEST] - <title>"
+title: "💡 [FEATURE] "
 labels: [
-  "question"
+  "feature"
 ]
 body:
+  - type: textarea
+    id: user_story
+    attributes:
+      label: "User Story"
+      description: Provide the user story for your feature request.
+      placeholder: As a [persona]... I want to... So that...
+    validations:
+      required: false
   - type: textarea
     id: summary
     attributes:
       label: "Summary"
-      description: Provide a brief explanation of the feature
-      placeholder: Describe in a few lines your feature request
-    validations:
-      required: true
-  - type: textarea
-    id: basic_example
-    attributes:
-      label: "Basic Example"
-      description: Indicate here some basic examples of your feature.
+      description: Provide a summary of your feature request.
       placeholder: A few specific words about your feature request.
-    validations:
-      required: true
-  - type: textarea
-    id: unresolved_question
-    attributes:
-      label: "Unresolved questions"
-      description: What questions still remain unresolved ?
-      placeholder: Identify any unresolved issues.
     validations:
       required: false

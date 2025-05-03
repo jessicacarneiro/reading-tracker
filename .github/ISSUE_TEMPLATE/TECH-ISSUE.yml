@@ -1,6 +1,6 @@
 name: "👩🏻‍💻 Tech Issue"
 description: Create a new ticket for a new tech issue
-title: "👩🏻‍💻 [TECH] - <title>"
+title: "👩🏻‍💻 [TECH] "
 labels: [
   "tech"
 ]
@@ -20,7 +20,7 @@ body:
       description: Indicate here some basic examples of your tech issue.
       placeholder: A few specific words about your tech issue request.
     validations:
-      required: true
+      required: false
   - type: textarea
     id: unresolved_question
     attributes:
