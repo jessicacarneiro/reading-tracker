@@ -1,0 +1,31 @@
+name: "👩🏻‍💻 Tech Issue"
+description: Create a new ticket for a new tech issue
+title: "👩🏻‍💻 [TECH] - <title>"
+labels: [
+  "tech"
+]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the tech issue
+      placeholder: Describe in a few lines your tech issue
+    validations:
+      required: true
+  - type: textarea
+    id: basic_example
+    attributes:
+      label: "Basic Example"
+      description: Indicate here some basic examples of your tech issue.
+      placeholder: A few specific words about your tech issue request.
+    validations:
+      required: true
+  - type: textarea
+    id: unresolved_question
+    attributes:
+      label: "Unresolved questions"
+      description: What questions still remain unresolved?
+      placeholder: Identify any unresolved issues.
+    validations:
+      required: false

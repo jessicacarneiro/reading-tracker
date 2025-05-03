@@ -1,0 +1,31 @@
+name: "🖥️ Infra Issue"
+description: Create a new ticket for a new infra issue
+title: "🖥️ [INFRA] - <title>"
+labels: [
+  "infra"
+]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the infra issue
+      placeholder: Describe in a few lines your infra issue
+    validations:
+      required: true
+  - type: textarea
+    id: basic_example
+    attributes:
+      label: "Basic Example"
+      description: Indicate here some basic examples of your infra issue.
+      placeholder: A few specific words about your infra issue request.
+    validations:
+      required: true
+  - type: textarea
+    id: unresolved_question
+    attributes:
+      label: "Unresolved questions"
+      description: What questions still remain unresolved?
+      placeholder: Identify any unresolved issues.
+    validations:
+      required: false
