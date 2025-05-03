@@ -1,0 +1,30 @@
+name: "📚 Spike"
+description: Create a new ticket for a new spike
+title: "📚 [SPIKE] "
+labels: [
+  "spike"
+]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the spike
+      placeholder: Describe in a few lines your spike
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: Provide the acceptance criteria for your spike.
+      placeholder: Given [context]... When [event]... Then [outcome]...
+    validations:  
+      required: false
+  - type: textarea
+    id: References
+    attributes:
+      label: "References"
+      description: Indicate here some references of your spike.
+    validations:
+      required: false
