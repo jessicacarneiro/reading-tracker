@@ -1,6 +1,6 @@
 name: "🐛 Bug Report"
 description: Create a new ticket for a bug.
-title: "🐛 [BUG] - <title>"
+title: "🐛 [BUG] "
 labels: [
   "bug"
 ]
@@ -20,7 +20,7 @@ body:
       description: Please enter your GitHub URL to provide a reproduction of the issue
       placeholder: ex. https://github.com/USERNAME/REPO-NAME
     validations:
-      required: true
+      required: false
   - type: textarea
     id: reprod
     attributes:
@@ -33,7 +33,7 @@ body:
         4. See error
       render: bash
     validations:
-      required: true
+      required: false
   - type: textarea
     id: screenshot
     attributes:
