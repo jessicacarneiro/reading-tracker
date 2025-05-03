@@ -16,8 +16,8 @@ body:
   - type: textarea
     id: basic_example
     attributes:
-      label: "Basic Example"
-      description: Indicate here some basic examples of your infra issue.
+      label: "Basic Example / References"
+      description: Indicate here some basic examples and/or references of your infra issue.
       placeholder: A few specific words about your infra issue request.
     validations:
       required: true

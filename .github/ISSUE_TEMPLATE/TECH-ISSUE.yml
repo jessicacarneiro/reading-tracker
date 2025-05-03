@@ -16,9 +16,8 @@ body:
   - type: textarea
     id: basic_example
     attributes:
-      label: "Basic Example"
-      description: Indicate here some basic examples of your tech issue.
-      placeholder: A few specific words about your tech issue request.
+      label: "Basic Example / References"
+      description: Indicate here some basic examples and/or references of your tech issue.
     validations:
       required: false
   - type: textarea
