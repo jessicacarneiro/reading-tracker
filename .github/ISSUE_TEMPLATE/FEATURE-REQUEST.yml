@@ -6,6 +6,14 @@ labels: [
 ]
 body:
   - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a summary of your feature request.
+      placeholder: A few specific words about your feature request.
+    validations:
+      required: false
+  - type: textarea
     id: user_story
     attributes:
       label: "User Story"
