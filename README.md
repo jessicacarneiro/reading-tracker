@@ -24,6 +24,13 @@ The file [tsconfig.json](./tsconfig.json) sets the compiler options for this pro
 #### Express
 We will use Express framework to create a minimal server.
 
+#### Lint
+Run it with the following command:
+
+```shell
+npx eslint . --ext .ts
+```
+
 ### Folder structure
 
 #### src/
