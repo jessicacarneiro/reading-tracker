@@ -28,7 +28,7 @@ We will use Express framework to create a minimal server.
 Run it with the following command:
 
 ```shell
-npx eslint . --ext .ts
+npm test
 ```
 
 ### Folder structure
@@ -43,7 +43,7 @@ This is the location to output `.js` files after transpilation.
 Use the following command to run the project:
 
 ```shell
-npx tsc
+npm start
 ```
 
 Express will be listening at [http://localhost:3000](http://localhost:3000).
