@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Label from "./components/Label";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
@@ -27,9 +28,7 @@ function App() {
   return (
     <form onSubmit={handleAddBook}>
       <div className="mb-3">
-        <label htmlFor="title" className="form-label">
-          Title
-        </label>
+        <Label htmlFor="title" text="Title" className="form-label" />
         <input
           id="title"
           className="form-control"
@@ -41,9 +40,7 @@ function App() {
       </div>
 
       <div className="mb-3">
-        <label htmlFor="author" className="form-label">
-          Author
-        </label>
+        <Label htmlFor="author" text="Author" className="form-label" />
         <input
           id="author"
           className="form-control"
@@ -55,9 +52,7 @@ function App() {
       </div>
 
       <div className="mb-3">
-        <label htmlFor="pageCount" className="form-label">
-          Page Count
-        </label>
+        <Label htmlFor="pageCount" text="Page Count" className="form-label" />
         <input
           id="pageCount"
           className="form-control"
