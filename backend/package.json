@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "build": "npx tsc",
+    "start": "node dist/app.js",
     "lint": "npx eslint . --ext .ts",
     "test": "jest"
   },
@@ -12,7 +13,7 @@
     "url": "git@gh_personal:jessicacarneiro/reading-tracker.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jéssica Carneiro",
   "license": "ISC",
   "description": "",
   "devDependencies": {
