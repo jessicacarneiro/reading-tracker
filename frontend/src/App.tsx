@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Label from "./components/Label";
-import Input from "./Input";
+import Input from "./components/Input";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
