@@ -1,6 +1,15 @@
-function Button({ title, href }: { title: string, href: string }) {
+import React from 'react';
+
+type ButtonProps = {
+  title: string;
+  onClick: () => void;
+};
+
+function Button({ title, onClick }: ButtonProps) {
   return (
-    <button><a href={href}>{title}</a></button>
+    <button className="btn btn-primary" onClick={onClick}>
+      {title}
+    </button>
   );
 }
 

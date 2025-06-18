@@ -1,17 +1,26 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Button from './Button';
 
 describe('Button component', () => {
   it('renders the correct title and href', () => {
     const title = 'Click me';
-    const href = '/example';
+    const handleClick = jest.fn();
 
-    render(<Button title={title} href={href} />);
+    render(<Button title={title} onClick={handleClick} />);
 
-    const linkElement = screen.getByText(title);
-    expect(linkElement).toBeInTheDocument();
+    const buttonElement = screen.getByRole('button', { name: title });
+    expect(buttonElement).toBeInTheDocument();
+  });
 
-    expect(linkElement.tagName).toBe('A');
-    expect(linkElement).toHaveAttribute('href', href);
+  it('calls onClick when the button is clicked', () => {
+    const handleClick = jest.fn();
+    const title = 'Click me';
+
+    render(<Button title={title} onClick={handleClick} />);
+
+    const buttonElement = screen.getByRole('button');
+    fireEvent.click(buttonElement);
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
