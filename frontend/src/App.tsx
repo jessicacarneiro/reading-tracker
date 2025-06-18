@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Label from "./components/Label";
+import Input from "./Input";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
@@ -19,7 +20,8 @@ function App() {
       body: JSON.stringify({ title, author, pageCount }),
     });
 
-    // Optionally reset the form
+    console.log("Book added successfully:", { title, author, pageCount });
+
     setTitle("");
     setAuthor("");
     setPageCount(0);
@@ -29,9 +31,8 @@ function App() {
     <form onSubmit={handleAddBook}>
       <div className="mb-3">
         <Label htmlFor="title" text="Title" className="form-label" />
-        <input
+        <Input
           id="title"
-          className="form-control"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -41,9 +42,8 @@ function App() {
 
       <div className="mb-3">
         <Label htmlFor="author" text="Author" className="form-label" />
-        <input
+        <Input
           id="author"
-          className="form-control"
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
@@ -53,9 +53,8 @@ function App() {
 
       <div className="mb-3">
         <Label htmlFor="pageCount" text="Page Count" className="form-label" />
-        <input
+        <Input
           id="pageCount"
-          className="form-control"
           type="number"
           value={pageCount}
           onChange={(e) => setPageCount(Number(e.target.value))}
