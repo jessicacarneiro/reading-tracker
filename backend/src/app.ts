@@ -1,14 +1,15 @@
 import express from 'express';
-const app = express();
-const port = 3000;
+import { bookRouter } from './domain/book/routes';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+const app = express();
+const port = 3030;
+
+app.use(express.json());
+app.use('/books', bookRouter);
 
 if (require.main === module) {
   app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
+    console.log(`Express is listening at http://localhost:${port}`);
   });
 }
 
