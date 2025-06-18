@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Label from "./components/Label";
 import Input from "./components/Input";
+import Button from "./components/Button";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
@@ -63,9 +64,7 @@ function App() {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary">
-        Add Book
-      </button>
+      <Button title="Add Book" />
     </form>
   );
 }
