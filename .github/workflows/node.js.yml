@@ -20,3 +20,13 @@ jobs:
       - name: Run tests
         run: npm test
         working-directory: backend
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+      - name: Run tests
+        run: npm test
+        working-directory: frontend
