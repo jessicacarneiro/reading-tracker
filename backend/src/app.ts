@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { bookRouter } from './domain/book/routes';
+import { bookRouter } from './routes';
 
 const app = express();
 const port = 3030;
