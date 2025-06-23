@@ -60,3 +60,4 @@ Express will be listening at [http://localhost:3000](http://localhost:3000).
 
 ### Setting up the project
 * [How To Set Up a Node Project With Typescript](https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript)
+* [How to Use TypeScript with MongoDB Atlas](https://www.mongodb.com/resources/products/compatibilities/using-typescript-with-mongodb-tutorial)
