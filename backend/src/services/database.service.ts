@@ -4,7 +4,9 @@ import BookModel from "../models/book";
 
 dotenv.config();
 
-export const collections: { books?: mongoDB.Collection<BookModel> } = {};
+export const collections: {
+  books?: mongoDB.Collection<BookModel>;
+} = {};
 
 export async function connectToDatabase() {
   dotenv.config();

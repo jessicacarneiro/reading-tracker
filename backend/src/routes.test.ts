@@ -2,17 +2,18 @@ import express from 'express';
 import request from 'supertest';
 import { bookRouter } from './routes';
 import { collections } from './services/database.service';
+import BookModel from "./models/book";
+import { Collection } from "mongodb";
 
 const app = express();
 app.use(express.json());
 app.use('/books', bookRouter);
 
 beforeEach(() => {
-  // Mock the books collection with jest.fn()
   collections.books = {
     find: jest.fn().mockReturnValue({ toArray: jest.fn().mockResolvedValue([]) }),
     insertOne: jest.fn().mockResolvedValue({ insertedId: 'mockId' }),
-  } as any;
+  } as unknown as Collection<BookModel>;
 });
 
 afterEach(() => {
