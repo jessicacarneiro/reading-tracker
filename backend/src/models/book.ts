@@ -1,6 +1,6 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
-export default class Book {
+export default class BookModel {
   constructor(
     public title: string,
     public author: string,

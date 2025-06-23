@@ -1,9 +1,10 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
+import BookModel from "../models/book";
 
 dotenv.config();
 
-export const collections: { books?: mongoDB.Collection } = {};
+export const collections: { books?: mongoDB.Collection<BookModel> } = {};
 
 export async function connectToDatabase() {
   dotenv.config();
@@ -16,7 +17,7 @@ export async function connectToDatabase() {
 
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
-  const booksCollection: mongoDB.Collection = db.collection(
+  const booksCollection = db.collection<BookModel>(
     process.env.BOOKS_COLLECTION_NAME
   );
 
