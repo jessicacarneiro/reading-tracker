@@ -37,7 +37,7 @@ function App() {
         </button>
       </div>
       {view === "add" && <AddBookForm onAddBook={handleAddBook} />}
-      {view === "list" && <ViewBookList />}
+      {view === "list" && <ViewBookList apiUrl={apiUrl} />}
     </div>
   );
 }

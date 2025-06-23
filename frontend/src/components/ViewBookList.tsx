@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
-
 interface Book {
   title: string;
   author: string;
   pageCount: number;
 }
 
-const ViewBookList: React.FC = () => {
+const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

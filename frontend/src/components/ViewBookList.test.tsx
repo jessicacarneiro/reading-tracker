@@ -7,7 +7,7 @@ describe("ViewBookList component", () => {
   });
 
   it("shows loading initially", () => {
-    render(<ViewBookList />);
+    render(<ViewBookList apiUrl="http://localhost:3030" />);
     expect(screen.getByText(/Loading books/i)).toBeInTheDocument();
   });
 
@@ -23,7 +23,7 @@ describe("ViewBookList component", () => {
       } as Response)
     ) as jest.Mock;
 
-    render(<ViewBookList />);
+    render(<ViewBookList apiUrl="http://localhost:3030" />);
 
     await waitFor(() => {
       expect(screen.getByText("Book 1")).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe("ViewBookList component", () => {
       } as Response)
     ) as jest.Mock;
 
-    render(<ViewBookList />);
+    render(<ViewBookList apiUrl="http://localhost:3030" />);
     await waitFor(() => {
       expect(screen.getByText(/No books found/i)).toBeInTheDocument();
     });
@@ -56,7 +56,7 @@ describe("ViewBookList component", () => {
       } as Response)
     ) as jest.Mock;
 
-    render(<ViewBookList />);
+    render(<ViewBookList apiUrl="http://localhost:3030" />);
     await waitFor(() => {
       expect(screen.getByText(/Error/i)).toBeInTheDocument();
     });
