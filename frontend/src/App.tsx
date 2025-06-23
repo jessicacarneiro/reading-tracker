@@ -1,9 +1,13 @@
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddBookForm from "./components/AddBookForm";
+import ViewBookList from "./components/ViewBookList";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
 function App() {
+  const [view, setView] = useState<"list" | "add">("list");
+
   const handleAddBook = async (book: { title: string; author: string; pageCount: number }) => {
     console.log("Adding a new book...");
 
@@ -16,7 +20,26 @@ function App() {
     console.log("Book added successfully:", book);
   };
 
-  return <AddBookForm onAddBook={handleAddBook} />;
+  return (
+    <div className="container mt-4">
+      <div className="mb-3">
+        <button
+          className="btn btn-primary me-2"
+          onClick={() => setView("list")}
+        >
+          Show all books
+        </button>
+        <button
+          className="btn btn-success"
+          onClick={() => setView("add")}
+        >
+          Add a new book
+        </button>
+      </div>
+      {view === "add" && <AddBookForm onAddBook={handleAddBook} />}
+      {view === "list" && <ViewBookList />}
+    </div>
+  );
 }
 
 export default App;
