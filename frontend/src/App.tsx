@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AddBookForm from "./components/AddBookForm";
+import BookForm from "./components/BookForm";
 import ViewBookList from "./components/ViewBookList";
 
 const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
@@ -36,7 +36,7 @@ function App() {
           Add a new book
         </button>
       </div>
-      {view === "add" && <AddBookForm onAddBook={handleAddBook} />}
+      {view === "add" && <BookForm onAddBook={handleAddBook} buttonTitle="Add book" />}
       {view === "list" && <ViewBookList apiUrl={apiUrl} />}
     </div>
   );

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AddBookForm from './AddBookForm';
+import BookForm from './BookForm';
 
 describe('AddBookForm component', () => {
   let onAddBook: jest.Mock;
@@ -9,23 +9,25 @@ describe('AddBookForm component', () => {
   });
 
   it('renders form fields', () => {
-    render(<AddBookForm onAddBook={onAddBook} />);
+    const buttonTitle = 'Add Book';
+    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
 
     expect(screen.getByLabelText(/Title/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Author/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Page Count/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Pages per day goal/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Add Book/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: buttonTitle })).toBeInTheDocument();
   });
 
   it('submits form with correct mandatory data', async () => {
-    render(<AddBookForm onAddBook={onAddBook} />);
+    const buttonTitle = 'Add Book';
+    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });
     fireEvent.change(screen.getByLabelText(/Page Count/i), { target: { value: '123' } });
 
-    fireEvent.click(screen.getByRole('button', { name: /Add Book/i }));
+    fireEvent.click(screen.getByRole('button', { name: buttonTitle }));
 
     await waitFor(() => {
       expect(onAddBook).toHaveBeenCalledTimes(1);
@@ -39,14 +41,15 @@ describe('AddBookForm component', () => {
   });
 
   it('submits form with correct data', async () => {
-    render(<AddBookForm onAddBook={onAddBook} />);
+    const buttonTitle = 'Add Book';
+    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });
     fireEvent.change(screen.getByLabelText(/Page Count/i), { target: { value: '123' } });
     fireEvent.change(screen.getByLabelText(/Pages per day goal/i), { target: { value: '5' } });
 
-    fireEvent.click(screen.getByRole('button', { name: /Add Book/i }));
+    fireEvent.click(screen.getByRole('button', { name: buttonTitle }));
 
     await waitFor(() => {
       expect(onAddBook).toHaveBeenCalledTimes(1);
@@ -61,13 +64,14 @@ describe('AddBookForm component', () => {
   });
 
   it('clears the form after successful submission', async () => {
-    render(<AddBookForm onAddBook={onAddBook} />);
+    const buttonTitle = 'Add Book';
+    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });
     fireEvent.change(screen.getByLabelText(/Page Count/i), { target: { value: '123' } });
 
-    fireEvent.click(screen.getByRole('button', { name: /Add Book/i }));
+    fireEvent.click(screen.getByRole('button', { name: buttonTitle }));
 
     await waitFor(() => {
       expect(onAddBook).toHaveBeenCalledTimes(1);

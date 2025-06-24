@@ -2,34 +2,26 @@ import React, { useState } from "react";
 import Label from "./Label";
 import Input from "./Input";
 import Button from "./Button";
+import Book from "../interfaces/Book";
 
-interface AddBookFormProps {
-  onAddBook: (book: { title: string; author: string; pageCount: number; pagesPerDayGoal?: number }) => Promise<void>;
+interface BookFormProps {
+  onAddBook: (book: Book) => Promise<void>;
+  buttonTitle: string;
+  initialBook?: Book;
 }
 
-const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [pageCount, setPageCount] = useState<number>(0);
-  const [pagesPerDayGoal, setPagesPerDayGoal] = useState<number | undefined>(undefined);
+const BookForm: React.FC<BookFormProps> = ({ onAddBook, buttonTitle, initialBook }) => {
+  const [form, setForm] = useState<Book>(
+    initialBook || { title: "", author: "", pageCount: 0, pagesPerDayGoal: undefined }
+  );
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     try {
-      await onAddBook({
-        title,
-        author,
-        pageCount,
-        ...(pagesPerDayGoal !== undefined && pagesPerDayGoal !== null && pagesPerDayGoal !== 0
-          ? { pagesPerDayGoal }
-          : {}),
-      });
-      setTitle("");
-      setAuthor("");
-      setPageCount(0);
-      setPagesPerDayGoal(undefined);
+      await onAddBook(form);
+      setForm({ title: "", author: "", pageCount: 0, pagesPerDayGoal: undefined });
     } catch (err: any) {
       setError("Failed to add book.");
       console.error(err);
@@ -44,8 +36,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
         <Input
           id="title"
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
           required
         />
       </div>
@@ -54,8 +46,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
         <Input
           id="author"
           type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={form.author}
+          onChange={(e) => setForm({ ...form, author: e.target.value })}
           required
         />
       </div>
@@ -64,8 +56,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
         <Input
           id="pageCount"
           type="number"
-          value={pageCount}
-          onChange={(e) => setPageCount(Number(e.target.value))}
+          value={form.pageCount}
+          onChange={(e) => setForm({ ...form, pageCount: Number(e.target.value) })}
           min={1}
           required
         />
@@ -75,17 +67,20 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
         <Input
           id="pagesPerDayGoal"
           type="number"
-          value={pagesPerDayGoal === undefined ? "" : pagesPerDayGoal}
+          value={form.pagesPerDayGoal === undefined ? "" : form.pagesPerDayGoal}
           onChange={(e) =>
-            setPagesPerDayGoal(e.target.value === "" ? undefined : Number(e.target.value))
+            setForm({
+              ...form,
+              pagesPerDayGoal: e.target.value === "" ? undefined : Number(e.target.value),
+            })
           }
           min={1}
           required={false}
         />
       </div>
-      <Button title="Add Book" />
+      <Button title={buttonTitle} />
     </form>
   );
 };
 
-export default AddBookForm;
+export default BookForm;

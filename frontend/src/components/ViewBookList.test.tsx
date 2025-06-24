@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ViewBookList from "./ViewBookList";
 
 describe("ViewBookList component", () => {
@@ -17,8 +17,8 @@ describe("ViewBookList component", () => {
         ok: true,
         json: () =>
           Promise.resolve([
-            { title: "Book 1", author: "Author 1", pageCount: 100 },
-            { title: "Book 2", author: "Author 2", pageCount: 200 },
+            { _id: "1", title: "Book 1", author: "Author 1", pageCount: 100 },
+            { _id: "2", title: "Book 2", author: "Author 2", pageCount: 200 },
           ]),
       } as Response)
     ) as jest.Mock;
@@ -32,6 +32,10 @@ describe("ViewBookList component", () => {
       expect(screen.getByText("Author 2")).toBeInTheDocument();
       expect(screen.getByText("100")).toBeInTheDocument();
       expect(screen.getByText("200")).toBeInTheDocument();
+      // Edit icons
+      expect(
+        screen.getAllByRole("button", { name: /edit book/i })
+      ).toHaveLength(2);
     });
   });
 
@@ -41,8 +45,14 @@ describe("ViewBookList component", () => {
         ok: true,
         json: () =>
           Promise.resolve([
-            { title: "Book 3", author: "Author 3", pageCount: 300, pagesPerDayGoal: 30 },
-            { title: "Book 4", author: "Author 4", pageCount: 400 },
+            {
+              _id: "3",
+              title: "Book 3",
+              author: "Author 3",
+              pageCount: 300,
+              pagesPerDayGoal: 30,
+            },
+            { _id: "4", title: "Book 4", author: "Author 4", pageCount: 400 },
           ]),
       } as Response)
     ) as jest.Mock;
@@ -60,10 +70,53 @@ describe("ViewBookList component", () => {
       expect(screen.getByText("400")).toBeInTheDocument();
       // pagesPerDayGoal not present for Book 4, so cell should be empty
       const rows = screen.getAllByRole("row");
-      // Find the row for Book 4 and check the last cell is empty
-      const book4Row = rows.find(row => row.textContent?.includes("Book 4"));
-      expect(book4Row?.lastElementChild?.textContent).toBe("");
+      const book4Row = rows.find((row) => row.textContent?.includes("Book 4"));
+      if (book4Row) {
+        const cells = book4Row.querySelectorAll("td");
+        expect(cells[cells.length - 2].textContent).toBe("");
+      }
+      // Edit icons
+      expect(
+        screen.getAllByRole("button", { name: /edit book/i })
+      ).toHaveLength(2);
     });
+  });
+
+  it("renders BookForm with initialBook when edit icon is clicked", async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () =>
+          Promise.resolve([
+            {
+              _id: "5",
+              title: "Book 5",
+              author: "Author 5",
+              pageCount: 500,
+              pagesPerDayGoal: 50,
+            },
+          ]),
+      } as Response)
+    ) as jest.Mock;
+
+    render(<ViewBookList apiUrl="http://localhost:3030" />);
+
+    // Wait for the table to render
+    await waitFor(() => {
+      expect(screen.getByText("Book 5")).toBeInTheDocument();
+    });
+
+    // Click the edit button
+    fireEvent.click(screen.getByRole("button", { name: /edit book/i }));
+
+    // The form should be rendered with the book's data
+    expect(screen.getByDisplayValue("Book 5")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("Author 5")).toBeInTheDocument();
+    expect(screen.getByDisplayValue(500)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(50)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Edit book/i })
+    ).toBeInTheDocument();
   });
 
   it("shows 'No books found.' if the list is empty", async () => {
