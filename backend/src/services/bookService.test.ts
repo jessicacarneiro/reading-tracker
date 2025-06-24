@@ -7,9 +7,11 @@ describe("bookService", () => {
   beforeEach(() => {
     collections.books = {
       find: jest.fn().mockReturnValue({
-        toArray: jest.fn().mockResolvedValue([
-          { title: "Book 1", author: "Author 1", pageCount: 100 },
-        ]),
+        toArray: jest
+          .fn()
+          .mockResolvedValue([
+            { title: "Book 1", author: "Author 1", pageCount: 100 },
+          ]),
       }),
       insertOne: jest.fn().mockResolvedValue({ insertedId: "mockId" }),
       updateOne: jest.fn().mockResolvedValue({ modifiedCount: 1 }),
@@ -101,7 +103,7 @@ describe("bookService", () => {
 
   describe("addBook", () => {
     it("should add a book and return insertedId", async () => {
-      const newBook = { title: "Test", author: "Tester", pageCount: 123 };
+      const newBook = { title: "Test", author: "Tester", pageCount: 123, pagesPerDayGoal: undefined, daysToFinish: undefined };
       const insertedId = await addBook(newBook as BookModel);
       expect(insertedId).toBe("mockId");
       expect(collections.books?.insertOne).toHaveBeenCalledWith(newBook);
@@ -127,6 +129,50 @@ describe("bookService", () => {
       const newBook = { title: "Test", author: "Tester", pageCount: 123 };
       await expect(addBook(newBook as BookModel)).rejects.toThrow(
         "Failed to create a new book."
+      );
+    });
+  });
+
+  describe("addBook with daysToFinish calculation", () => {
+    it("should add daysToFinish to the book before inserting", async () => {
+      const newBook = {
+        title: "Test",
+        author: "Tester",
+        pageCount: 100,
+        pagesPerDayGoal: 20,
+      } as BookModel;
+
+      // Spy on insertOne to capture the argument
+      const insertOneSpy = jest.spyOn(collections.books!, "insertOne");
+
+      await addBook(newBook);
+
+      expect(insertOneSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ daysToFinish: 5 })
+      );
+    });
+  });
+
+  describe("updateBook with daysToFinish calculation", () => {
+    it("should update daysToFinish when updating a book", async () => {
+      const id = "507f1f77bcf86cd799439011";
+      const updatedBook = {
+        title: "Updated",
+        author: "Author",
+        pageCount: 90,
+        pagesPerDayGoal: 30,
+      } as BookModel;
+
+      // Spy on updateOne to capture the argument
+      const updateOneSpy = jest.spyOn(collections.books!, "updateOne");
+
+      await updateBook(id, updatedBook);
+
+      expect(updateOneSpy).toHaveBeenCalledWith(
+        expect.any(Object),
+        expect.objectContaining({
+          $set: expect.objectContaining({ daysToFinish: 3 }),
+        })
       );
     });
   });
