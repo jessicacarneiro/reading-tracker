@@ -30,7 +30,6 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
     setEditingBook(book);
   };
 
-  // EDIT HANDLER: Calls PUT /books/:id
   const handleUpdateBook = async (book: Book) => {
     if (!book._id) return;
     const {_id, ...bookData} = book; // Exclude _id from the book data
@@ -67,6 +66,7 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
           <th>Author</th>
           <th>Page Count</th>
           <th>Pages/Day Goal</th>
+          <th>Days to finish</th>
           <th></th>
         </tr>
       </thead>
@@ -79,6 +79,11 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
             <td>
               {book.pagesPerDayGoal !== undefined && book.pagesPerDayGoal !== null
                 ? book.pagesPerDayGoal
+                : ""}
+            </td>
+            <td>
+              {book.daysToFinish !== undefined && book.daysToFinish !== null
+                ? book.daysToFinish
                 : ""}
             </td>
             <td>

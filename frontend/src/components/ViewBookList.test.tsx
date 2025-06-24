@@ -2,6 +2,15 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ViewBookList from "./ViewBookList";
 
 describe("ViewBookList component", () => {
+  beforeAll(() => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve([]),
+      } as Response)
+    ) as jest.Mock;
+  });
+
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -11,7 +20,7 @@ describe("ViewBookList component", () => {
     expect(screen.getByText(/Loading books/i)).toBeInTheDocument();
   });
 
-  it("renders a list of books after fetch (without pagesPerDayGoal)", async () => {
+  it("renders a list of books after fetch (without pagesPerDayGoal or daysToFinish)", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -36,10 +45,23 @@ describe("ViewBookList component", () => {
       expect(
         screen.getAllByRole("button", { name: /edit book/i })
       ).toHaveLength(2);
+
+      // Days to finish cells should be empty
+      const rows = screen.getAllByRole("row");
+      rows.forEach((row) => {
+        if (
+          row.textContent?.includes("Book 1") ||
+          row.textContent?.includes("Book 2")
+        ) {
+          const cells = row.querySelectorAll("td");
+          // Days to finish is the second-to-last cell
+          expect(cells[cells.length - 2].textContent).toBe("");
+        }
+      });
     });
   });
 
-  it("renders a list of books with pagesPerDayGoal when present", async () => {
+  it("renders a list of books with pagesPerDayGoal and daysToFinish when present", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -51,8 +73,15 @@ describe("ViewBookList component", () => {
               author: "Author 3",
               pageCount: 300,
               pagesPerDayGoal: 30,
+              daysToFinish: 10,
             },
-            { _id: "4", title: "Book 4", author: "Author 4", pageCount: 400 },
+            {
+              _id: "4",
+              title: "Book 4",
+              author: "Author 4",
+              pageCount: 400,
+              // no pagesPerDayGoal or daysToFinish
+            },
           ]),
       } as Response)
     ) as jest.Mock;
@@ -64,17 +93,21 @@ describe("ViewBookList component", () => {
       expect(screen.getByText("Author 3")).toBeInTheDocument();
       expect(screen.getByText("300")).toBeInTheDocument();
       expect(screen.getByText("30")).toBeInTheDocument(); // pagesPerDayGoal present
+      expect(screen.getByText("10")).toBeInTheDocument(); // daysToFinish present
 
       expect(screen.getByText("Book 4")).toBeInTheDocument();
       expect(screen.getByText("Author 4")).toBeInTheDocument();
       expect(screen.getByText("400")).toBeInTheDocument();
-      // pagesPerDayGoal not present for Book 4, so cell should be empty
+
+      // Book 4: pagesPerDayGoal and daysToFinish cells should be empty
       const rows = screen.getAllByRole("row");
       const book4Row = rows.find((row) => row.textContent?.includes("Book 4"));
       if (book4Row) {
         const cells = book4Row.querySelectorAll("td");
-        expect(cells[cells.length - 2].textContent).toBe("");
+        expect(cells[3].textContent).toBe(""); // pagesPerDayGoal
+        expect(cells[4].textContent).toBe(""); // daysToFinish
       }
+
       // Edit icons
       expect(
         screen.getAllByRole("button", { name: /edit book/i })
@@ -94,6 +127,7 @@ describe("ViewBookList component", () => {
               author: "Author 5",
               pageCount: 500,
               pagesPerDayGoal: 50,
+              daysToFinish: 20,
             },
           ]),
       } as Response)

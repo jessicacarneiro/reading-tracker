@@ -4,6 +4,7 @@ interface Book {
   author: string;
   pageCount: number;
   pagesPerDayGoal?: number;
+  daysToFinish?: number;
 }
 
 export default Book;
