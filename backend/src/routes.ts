@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import BookModel from "./models/book";
-import { getAllBooks, addBook } from "./services/bookService";
+import { getAllBooks, addBook, updateBook } from "./services/bookService";
 
 export const bookRouter = express.Router();
 
@@ -9,6 +9,18 @@ bookRouter.get("/", async (_req: Request, res: Response) => {
   try {
     const books = await getAllBooks();
     res.status(200).send(books);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error?.message || "Unknown error occurred");
+  }
+});
+
+bookRouter.put("/:id", async (req: Request, res: Response) => {
+  console.log("Updating book with id:", req.params.id);
+  try {
+    const updatedBook = req.body as BookModel;
+    const result = await updateBook(req.params.id, updatedBook);
+    res.status(200).send(`Successfully updated book with id ${result}`);
   } catch (error) {
     console.error(error);
     res.status(500).send(error?.message || "Unknown error occurred");
