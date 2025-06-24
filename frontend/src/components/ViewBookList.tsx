@@ -4,6 +4,7 @@ interface Book {
   title: string;
   author: string;
   pageCount: number;
+  pagesPerDayGoal?: number;
 }
 
 const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
@@ -27,7 +28,7 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
       }
     };
     fetchBooks();
-  }, []);
+  }, [apiUrl]);
 
   if (loading) return <div>Loading books...</div>;
   if (error) return <div className="text-danger">Error: {error}</div>;
@@ -40,6 +41,7 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
           <th>Title</th>
           <th>Author</th>
           <th>Page Count</th>
+          <th>Pages/Day Goal</th>
         </tr>
       </thead>
       <tbody>
@@ -48,6 +50,11 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
             <td>{book.title}</td>
             <td>{book.author}</td>
             <td>{book.pageCount}</td>
+            <td>
+              {book.pagesPerDayGoal !== undefined && book.pagesPerDayGoal !== null
+                ? book.pagesPerDayGoal
+                : ""}
+            </td>
           </tr>
         ))}
       </tbody>

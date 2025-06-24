@@ -3,6 +3,7 @@ export interface Book {
   title: string;  
   author: string;
   pageCount: number;
+  pagesPerDayGoal?: number;
   publishedDate?: string;
   isbn?: string;
   summary?: string;

@@ -5,6 +5,7 @@ export default class BookModel {
     public title: string,
     public author: string,
     public pageCount: number,
+    public pagesPerDayGoal?: number,
     public id?: ObjectId
   ) {}
 }
