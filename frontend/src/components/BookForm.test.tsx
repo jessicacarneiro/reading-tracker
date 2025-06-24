@@ -10,7 +10,7 @@ describe('AddBookForm component', () => {
 
   it('renders form fields', () => {
     const buttonTitle = 'Add Book';
-    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
+    render(<BookForm onEditBook={onAddBook} buttonTitle={buttonTitle} />);
 
     expect(screen.getByLabelText(/Title/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Author/i)).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('AddBookForm component', () => {
 
   it('submits form with correct mandatory data', async () => {
     const buttonTitle = 'Add Book';
-    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
+    render(<BookForm onEditBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });
@@ -42,7 +42,7 @@ describe('AddBookForm component', () => {
 
   it('submits form with correct data', async () => {
     const buttonTitle = 'Add Book';
-    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
+    render(<BookForm onEditBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });
@@ -65,7 +65,7 @@ describe('AddBookForm component', () => {
 
   it('clears the form after successful submission', async () => {
     const buttonTitle = 'Add Book';
-    render(<BookForm onAddBook={onAddBook} buttonTitle={buttonTitle} />);
+    render(<BookForm onEditBook={onAddBook} buttonTitle={buttonTitle} />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Test Title' } });
     fireEvent.change(screen.getByLabelText(/Author/i), { target: { value: 'Test Author' } });

@@ -5,12 +5,12 @@ import Button from "./Button";
 import Book from "../interfaces/Book";
 
 interface BookFormProps {
-  onAddBook: (book: Book) => Promise<void>;
+  onEditBook: (book: Book) => Promise<void>;
   buttonTitle: string;
   initialBook?: Book;
 }
 
-const BookForm: React.FC<BookFormProps> = ({ onAddBook, buttonTitle, initialBook }) => {
+const BookForm: React.FC<BookFormProps> = ({ onEditBook: onAddBook, buttonTitle, initialBook }) => {
   const [form, setForm] = useState<Book>(
     initialBook || { title: "", author: "", pageCount: 0, pagesPerDayGoal: undefined }
   );

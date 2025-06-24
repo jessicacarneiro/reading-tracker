@@ -36,7 +36,7 @@ function App() {
           Add a new book
         </button>
       </div>
-      {view === "add" && <BookForm onAddBook={handleAddBook} buttonTitle="Add book" />}
+      {view === "add" && <BookForm onEditBook={handleAddBook} buttonTitle="Add book" />}
       {view === "list" && <ViewBookList apiUrl={apiUrl} />}
     </div>
   );

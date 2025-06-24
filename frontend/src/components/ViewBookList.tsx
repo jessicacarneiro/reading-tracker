@@ -52,7 +52,7 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
   if (editingBook) {
     return (
       <BookForm
-        onAddBook={handleUpdateBook}
+        onEditBook={handleUpdateBook}
         buttonTitle="Edit book"
         initialBook={editingBook}
       />
