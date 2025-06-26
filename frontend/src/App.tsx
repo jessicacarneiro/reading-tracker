@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BookForm from "./components/BookForm";
 import ViewBookList from "./components/ViewBookList";
+import AddBookPage from "./pages/AddBook"; 
 
-const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
+export const apiUrl = process.env.BACKEND_URL || "http://localhost:3030";
 
 function App() {
   const [view, setView] = useState<"list" | "add">("list");
@@ -36,7 +36,7 @@ function App() {
           Add a new book
         </button>
       </div>
-      {view === "add" && <BookForm onEditBook={handleAddBook} buttonTitle="Add book" />}
+      {view === "add" && <AddBookPage />}
       {view === "list" && <ViewBookList apiUrl={apiUrl} />}
     </div>
   );
