@@ -63,3 +63,4 @@ Express will be listening at [http://localhost:3000](http://localhost:3000).
 * [React - Getting started](https://create-react-app.dev/docs/getting-started/)
 * [Building and testing Node.js](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-nodejs)
 * [How to Use TypeScript with MongoDB Atlas](https://www.mongodb.com/resources/products/compatibilities/using-typescript-with-mongodb-tutorial)
+* [How To Structure React Projects From Beginner To Advanced](https://blog.webdevsimplified.com/2022-07/react-folder-structure/)

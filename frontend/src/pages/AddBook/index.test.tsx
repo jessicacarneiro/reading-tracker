@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import BookForm from "../../components/BookForm";
+import AddBookPage from "./index";
 
 describe("AddBook page", () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("AddBook page", () => {
   });
 
   it("renders the form fields", () => {
-    render(<BookForm onEditBook={jest.fn()} buttonTitle="Add book" />);
+    render(<AddBookPage />);
     expect(screen.getByLabelText(/Title/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Author/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Page Count/i)).toBeInTheDocument();
@@ -26,8 +26,7 @@ describe("AddBook page", () => {
   });
 
   it("submits the form with correct data", async () => {
-    const handleAddBook = jest.fn(() => Promise.resolve());
-    render(<BookForm onEditBook={handleAddBook} buttonTitle="Add book" />);
+    render(<AddBookPage />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), {
       target: { value: "Test Title" },
@@ -42,22 +41,23 @@ describe("AddBook page", () => {
     fireEvent.click(screen.getByRole("button", { name: /Add book/i }));
 
     await waitFor(() => {
-      expect(handleAddBook).toHaveBeenCalledWith({
-        title: "Test Title",
-        author: "Test Author",
-        pageCount: 123,
-        pagesPerDayGoal: undefined,
-      });
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining("/books"),
+        expect.objectContaining({
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: "Test Title",
+            author: "Test Author",
+            pageCount: 123,
+          }),
+        })
+      );
     });
   });
 
   it("clears the form after successful submission", async () => {
-    render(
-      <BookForm
-        onEditBook={jest.fn(() => Promise.resolve())}
-        buttonTitle="Add book"
-      />
-    );
+    render(<AddBookPage />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), {
       target: { value: "Test Title" },

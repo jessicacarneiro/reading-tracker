@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BookForm from "./BookForm";
 import Book from "../interfaces/Book";
+import EditBookPage from "../pages/EditBook";
 
 const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -50,12 +51,8 @@ const ViewBookList: React.FC<{ apiUrl: string }> = ({ apiUrl }) => {
 
   if (editingBook) {
     return (
-      <BookForm
-        onEditBook={handleUpdateBook}
-        buttonTitle="Edit book"
-        initialBook={editingBook}
-      />
-    );
+    <EditBookPage initialBook={editingBook} />
+  );
   }
 
   return (
